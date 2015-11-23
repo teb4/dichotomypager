@@ -1,0 +1,93 @@
+<html>
+    <!--
+        Dichotomy pager sample
+    
+        © Tolmachev Eugeny, 2015 
+    -->
+    <script type="text/javascript" src="DichotomyPager.js"></script>
+    <script type="text/javascript">        
+
+        function setDirectButtonValue( buttonId, value ){
+            document.getElementById( buttonId ).value = value;
+        }
+        
+        var pager;        
+        
+        function main(){            
+            pager = new DichotomyPager( 
+                {        
+                    left:{ 
+                        value: 1, 
+                        view: document.getElementById( 'left' ), 
+                        callback: function( value ){
+                            setDirectButtonValue( 'directButtonLeft', value );
+                        }
+                    },                    
+                    right:{ 
+                        value: 100, 
+                        view: document.getElementById( 'right' ), 
+                        callback: function( value ){
+                            setDirectButtonValue( 'directButtonRight', value );
+                        }
+                    },
+                    middle:{ 
+                        value: 50, 
+                        view: document.getElementById( 'middle' ), 
+                        callback: function( value ){
+                            setDirectButtonValue( 'directButtonMiddle', value );
+                        }
+                    },                                        
+                    moveButton: {
+                        left: document.getElementById( 'buttonLeft' ),
+                        right: document.getElementById( 'buttonRight' ),
+                        back: document.getElementById( 'buttonBack' )
+                    }
+                } 
+            );        
+            
+            function getPageLeft(){
+                alert( 'get page number ' + pager.getLeft() );
+            }
+            function getPageRight(){
+                alert( 'get page number ' + pager.getRight() );
+            }
+            function getPageMiddle(){
+                alert( 'get page number ' + pager.getMiddle() );
+            }            
+            document.getElementById( 'directButtonLeft' ).onclick = getPageLeft;
+            document.getElementById( 'directButtonRight' ).onclick = getPageRight;
+            document.getElementById( 'directButtonMiddle' ).onclick = getPageMiddle;
+        }
+    </script>
+    <body onload="main()">
+        <table>
+            <tr>
+                <td>left</td>
+                <td><input type="text" id="left" /></td>
+            </tr>
+            <tr>
+                <td>right</td>
+                <td><input type="text" id="right" /></td>
+            </tr>            
+            <tr>
+                <td>middle</td><td><input type="text" id="middle" /></td>
+            </tr>
+        </table> 
+        <table>
+            <tr>
+                <td>
+                    <input type="button" id="directButtonLeft" />
+                    <input type="button" id="directButtonMiddle" />
+                    <input type="button" id="directButtonRight" />
+                </td>
+            </tr>            
+            <tr>
+                <td>
+                    <input type="button" id="buttonLeft" value="left" />
+                    <input type="button" id="buttonBack" value="back" />
+                    <input type="button" id="buttonRight" value="right" />
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
