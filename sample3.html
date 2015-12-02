@@ -1,0 +1,117 @@
+<html>
+    <!--
+        Dichotomy pager sample ( with additioonal linear selector )
+    
+        © Tolmachev Eugeny, 2015 
+    -->
+    <script type="text/javascript" src="DichotomyPager.js"></script>
+    <script type="text/javascript">        
+
+        function setLinearSelector( linearSelector, left ){
+            for( var i = 0; i < 10; i++ ){
+                linearSelector[ i ].pageNumber = left + i;
+                linearSelector[ i ].value = left + i;
+            }
+        }        
+        function setDirectButtonValue( buttonId, value ){
+            document.getElementById( buttonId ).value = value;
+            if( linearSelector.toString().length !== 0  ){
+                if( buttonId === 'directButtonLeft' ){
+                    setLinearSelector( linearSelector, value );
+                }
+            }
+        }
+        function linearSelectorClick(){
+            alert( 'get page number ' + this.pageNumber );
+        }
+        
+        var pager;        
+        var linearSelectorSize = 10;
+        var linearSelector = [];
+        
+        function main(){            
+            pager = new DichotomyPager( 
+                {        
+                    left:{ 
+                        value: 1, 
+                        view: undefined,
+                        callback: function( value ){                            
+                            setDirectButtonValue( 'directButtonLeft', value );
+                        }
+                    },                    
+                    right:{ 
+                        value: 100, 
+                        view: undefined,
+                        callback: function( value ){
+                            setDirectButtonValue( 'directButtonRight', value );
+                        }
+                    },
+                    middle:{ 
+                        value: 50, 
+                        view: undefined,
+                        callback: function( value ){
+                            setDirectButtonValue( 'directButtonMiddle', value );
+                        }
+                    },                                        
+                    moveButton: {
+                        left: document.getElementById( 'buttonLeft' ),
+                        right: document.getElementById( 'buttonRight' ),
+                        back: document.getElementById( 'buttonBack' )
+                    }
+                } 
+            );        
+            
+            function getPageLeft(){
+                alert( 'get page number ' + pager.getLeft() );
+            }
+            function getPageRight(){
+                alert( 'get page number ' + pager.getRight() );
+            }
+            function getPageMiddle(){
+                alert( 'get page number ' + pager.getMiddle() );
+            }            
+            document.getElementById( 'directButtonLeft' ).onclick = getPageLeft;
+            document.getElementById( 'directButtonRight' ).onclick = getPageRight;
+            document.getElementById( 'directButtonMiddle' ).onclick = getPageMiddle;
+            
+            for( var i = 0; i < linearSelectorSize; i++ ){
+                linearSelector[ i ] = document.getElementById( 'directButtonArray[' + i + ']' )
+                linearSelector[ i ].pageNumber = -1;
+                linearSelector[ i ].onclick = linearSelectorClick;
+            }
+            setLinearSelector( linearSelector, 1 );
+        }
+    </script>
+    <body onload="main()">
+        <table id="dichotomy_selector">
+            <tr>
+                <td>
+                    <input type="button" id="directButtonLeft" />
+                    <input type="button" id="directButtonMiddle" />
+                    <input type="button" id="directButtonRight" />
+                </td>
+            </tr>            
+            <tr>
+                <td>
+                    <input type="button" id="buttonLeft" value="left" />
+                    <input type="button" id="buttonBack" value="back" />
+                    <input type="button" id="buttonRight" value="right" />
+                </td>
+            </tr>
+        </table>
+        <table id="linear_selector">
+            <tr>
+                <td><input type="button" id="directButtonArray[0]" value="1" /></td>
+                <td><input type="button" id="directButtonArray[1]" value="1" /></td>
+                <td><input type="button" id="directButtonArray[2]" value="1" /></td>
+                <td><input type="button" id="directButtonArray[3]" value="1" /></td>
+                <td><input type="button" id="directButtonArray[4]" value="1" /></td>
+                <td><input type="button" id="directButtonArray[5]" value="1" /></td>
+                <td><input type="button" id="directButtonArray[6]" value="1" /></td>
+                <td><input type="button" id="directButtonArray[7]" value="1" /></td>
+                <td><input type="button" id="directButtonArray[8]" value="1" /></td>
+                <td><input type="button" id="directButtonArray[9]" value="1" /></td>
+            </tr>            
+        </table>
+    </body>
+</html>

@@ -15,7 +15,7 @@ function Pos( value ){
         if( !( obj === undefined ) ){    
             obj.value = val;
         }            
-        if( !( callback === undefined ) ){    
+        if( !( callback === undefined ) ){ 
             callback( val );
         }                   
     }
